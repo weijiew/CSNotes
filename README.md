@@ -22,13 +22,11 @@
   - 
 
 * ⛽ MIT 6.NULL
-  * 
 
-- [💥 CS61A](https://cs.weijiew.com/book/cs61a/ch0.html) 
+- [💥 CS61A]() 
 - [💻 6.S081]() 
 - [🍋 CS144 计算机网络]() 
 - [🐉 编译原理]() 
-- [🚀 算法]()
 - [🐘 大数据技术]()
 
 <!-- - [💻 Nand2Tetris](https://cs.weijiew.com/book/nand2tetris/ch0.html)  -->

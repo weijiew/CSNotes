@@ -1,5 +1,7 @@
 # LAB-0: 搭建实验环境
 
+> 本文来源于此仓库 github.com/weijiew/codestep ，如果对你有帮助的话请给个 star 。
+
 我是在 win10 系统上做实验的，而实验环境要求 linux 平台，所以有以下三种解决方案。
 
 1. 在 docker 中做实验。

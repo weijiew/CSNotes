@@ -1,5 +1,7 @@
 # LAB-1: Data Lab
 
+> 本文来源于此仓库 github.com/weijiew/codestep ，如果对你有帮助的话请给个 star 。
+
 建议先阅读 CS:APP 第二章。
 
 ## 1. 阅读
@@ -14,8 +16,9 @@
 
 总结：
 
-1. `make btest` 编译
-2. `./btest` 运行
+1. btest 文件用于检测函数的正确性，在运行之前先要进行编译 `make` 。
+2. 然后运行编译好的 btest 文件 `./btest`。
+3. 除此之外 btest 有一些可选参数用于指定输入。例如 `./btest -f bitXor` 表示单独调试 bitXor 而 `./btest -f bitXor -1 4 -2 5` 表示指定输入参数，其中 `-1 4 -2 5` 表示指定一个参数为 4 第二个参数为 5。
 
 这个错误不用理会。
 
@@ -188,24 +191,111 @@ int isLessOrEqual(int x, int y) {
 
 ## 3.9 logicalNeg
 
+位运算实现逻辑非 `(!)` 。
+
 ```c
 int logicalNeg(int x) {
   return ((x|(~x+1))>>31)+1;
 }
 ```
 
+x 的补码是取反再加一，也就是 `~x+1` .
+
+* -5 x 的二进制:  00000101
+* -5 ~x+1的补码:  11111011
+* x|(~x+1) 结果： 00000001
+
+其实到此处就已经结束，某个数的二进制和该数补码（二进制取反加一）进行异或运算就是所得结果。
+
+但是存在两个特殊情况，0 的补码是其本身，最小数（1000... 符号位是 1 其余位是 0）的补码也是其本身。
+
+针对这两个数字需要根据符号位来判断，也就是取上述结果的符号位再加一，自己算一遍就明白了。
+
+* `x|(~x+1) >> 31` 表示取(00000001)的符号位即 0 
+* `0 + 1` 得 `1` 
+
+x 与其补码的符号位进行或运算的时候结果为 1 。
+
 ## 3.10 howManyBits
 
-判断输入的数字在二进制下占几位。
+当数字用补码表示的时候最少要占几位？
 
+```cpp
+int howManyBits(int x) {
+  int b16,b8,b4,b2,b1,b0;
+  // 获取符号位（补码下最高位是符号位）
+  int sign=x>>31;
+  x = (sign&~x)|(~sign&x);
+
+  b16 = !!(x>>16)<<4;
+  x = x>>b16;
+  b8 = !!(x>>8)<<3;
+  x = x>>b8;
+  b4 = !!(x>>4)<<2;
+  x = x>>b4;
+  b2 = !!(x>>2)<<1;
+  x = x>>b2;
+  b1 = !!(x>>1);
+  x = x>>b1;
+  b0 = x;
+  return b16+b8+b4+b2+b1+b0+1;
+}
+```
 
 
 ## 3.11 floatScale2
 
+```cpp
+unsigned floatScale2(unsigned uf) {
+  int exp = (uf&0x7f800000)>>23;
+  int sign = uf&(1<<31);
+  if(exp==0) return uf<<1|sign;
+  if(exp==255) return uf;
+  exp++;
+  if(exp==255) return 0x7f800000|sign;
+  return (exp<<23)|(uf&0x807fffff);
+}
+```
+
 ## 3.12 floatFloat2Int
+
+```cpp
+unsigned floatScale2(unsigned uf) {
+  int exp = (uf&0x7f800000)>>23;
+  int sign = uf&(1<<31);
+  if(exp==0) return uf<<1|sign;
+  if(exp==255) return uf;
+  exp++;
+  if(exp==255) return 0x7f800000|sign;
+  return (exp<<23)|(uf&0x807fffff);
+}
+```
 
 ## 3.13 floatPower2
 
-# 参考
+```cpp
+int floatFloat2Int(unsigned uf) {
+  int s_    = uf>>31;
+  int exp_  = ((uf&0x7f800000)>>23)-127;
+  int frac_ = (uf&0x007fffff)|0x00800000;
+  if(!(uf&0x7fffffff)) return 0;
+
+  if(exp_ > 31) return 0x80000000;
+  if(exp_ < 0) return 0;
+
+  if(exp_ > 23) frac_ <<= (exp_-23);
+  else frac_ >>= (23-exp_);
+
+  if(!((frac_>>31)^s_)) return frac_;
+  else if(frac_>>31) return 0x80000000;
+  else return ~frac_+1;
+}
+```
+
+## 总结
+
+后三道题不是很明白，先放在这里吧，有时间的话再补充。
+
+## 参考
 
 1. [CSAPP 之 DataLab详解，没有比这更详细的了](https://zhuanlan.zhihu.com/p/59534845)

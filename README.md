@@ -18,8 +18,7 @@
 
 - [🥞 CS:APP-lab]() 
   - [LAB-0: 搭建实验环境](https://mp.weixin.qq.com/s/SvythEVZfKQ8jo2CLwFcfA)
-  - LAB-1: Data Lab
-  - 
+  - [LAB-1: Data Lab](https://mp.weixin.qq.com/s/Z4fmLzqeKL-0z-i4s0w-Ig)
 
 * ⛽ MIT 6.NULL
 

@@ -17,8 +17,8 @@
 本仓库所记内容不仅仅为知识的复述，更多的为学习过程中的思考与总结。
 
 - [🥞 CS:APP-lab]() 
-  - [LAB-0: 搭建实验环境](https://mp.weixin.qq.com/s/SvythEVZfKQ8jo2CLwFcfA)
-  - [LAB-1: Data Lab](https://mp.weixin.qq.com/s/Z4fmLzqeKL-0z-i4s0w-Ig)
+  - [LAB-0: 搭建实验环境](https://mp.weixin.qq.com/s/SvythEVZfKQ8jo2CLwFcfA) [backup](notes/csapp/lab0.md)
+  - [LAB-1: Data Lab](https://mp.weixin.qq.com/s/Z4fmLzqeKL-0z-i4s0w-Ig) [backup](notes/csapp/lab1.md)
 
 * ⛽ MIT 6.NULL
 
